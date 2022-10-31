@@ -119,7 +119,7 @@ export default function PlayerControls() {
           className="player-controls player-between"
           style={{ paddingTop: 15, paddingBottom: 15 }}
         >
-          <button className="button">
+          <button className="button button-off">
             <CgChevronDoubleLeftO size={18} />
           </button>
           <div className="flex-inline gap-5 player-center">
@@ -148,7 +148,7 @@ export default function PlayerControls() {
               <BsStopCircleFill size={15} />
             </button>
           </div>
-          <button className="button">
+          <button className="button button-off">
             <CgChevronDoubleRightO size={18} />
           </button>
         </div>
