@@ -1,11 +1,11 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.6.0",
-  "description": "A foundation for scalable desktop apps",
+  "name": "Electron Video Player",
+  "version": "0.1a",
+  "description": "React Electron Video player",
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
+    "name": "xxevnxxe",
+    "email": "dwikialfian92@gmail.com",
     "url": "https://github.com/electron-react-boilerplate"
   },
   "main": "./dist/main/main.js",

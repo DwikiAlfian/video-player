@@ -1,62 +1,236 @@
-/*
- * @NOTE: Prepend a `~` to css file paths that are in your node_modules
- *        See https://github.com/webpack-contrib/sass-loader#imports
- */
+@font-face {
+  font-family: 'Manrope';
+  src: url('./assets/fonts/manrope.ttf');
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-drag: none;
+  font-family: 'Manrope';
+  outline: none;
+}
 body {
-  position: relative;
   color: white;
+  background-color: rgba(10, 10, 10);
   height: 100vh;
-  background: linear-gradient(
-    200.96deg,
-    #fedc2a -29.09%,
-    #dd5789 51.77%,
-    #7a2c9e 129.35%
-  );
-  font-family: sans-serif;
-  overflow-y: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
+  overflow-x: hidden;
 }
-
-button {
-  background-color: white;
-  padding: 10px 20px;
-  border-radius: 10px;
+#root {
+  height: 100%;
+}
+.app-title {
+  padding: 10px;
+  padding-right: 160px;
+  position: fixed;
+  gap: 10px;
+  z-index: 100000;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  border-radius: 7px;
+  background-color: rgba(30, 30, 30, 0.7);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(35px);
+  overflow: hidden;
+  box-shadow: 0 0 15px 5px rgba(30, 30, 30, 0.5);
+  transition: transform 250ms;
+  -webkit-app-region: drag;
+}
+body.hide .app-title {
+  transform: translateY(-125%);
+}
+.app-title span {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: bold;
+}
+.app-icons {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.app-title-icon {
+  background-color: rgba(10, 10, 10, 0.25);
+  height: 100%;
+  width: 50px;
+  color: white;
   border: none;
-  appearance: none;
-  font-size: 1.3rem;
-  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
-    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
-  transition: all ease-in 0.1s;
-  cursor: pointer;
-  opacity: 0.9;
+  -webkit-app-region: no-drag;
+}
+.app-title-icon:hover {
+  background-color: rgba(30, 30, 30, 0.7);
 }
 
-button:hover {
-  transform: scale(1.05);
-  opacity: 1;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
-  height: fit-content;
-  width: fit-content;
-  margin: 10px;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.Hello {
+.flex-inline {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
-  margin: 20px 0;
+}
+
+.gap-5 {
+  gap: 5px;
+}
+.gap-10 {
+  gap: 10px;
+}
+.gap-15 {
+  gap: 15px;
+}
+.gap-20 {
+  gap: 20px;
+}
+
+.sidebar {
+  width: 300px;
+  background-color: rgba(20, 20, 20);
+  height: 100%;
+}
+
+.player-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.player-inline {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+.video-player {
+  width: 100%;
+  height: 100%;
+}
+.player-controls-container {
+  position: absolute;
+  z-index: 100;
+  bottom: 25px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transform: translateY(0) translateX(-50%);
+  transition: transform 150ms;
+}
+body.hide .player-controls-container {
+  transform: translateY(125%) translateX(-50%);
+}
+.player-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(30, 30, 30, 0.5);
+  padding: 10px;
+  border-radius: 7px;
+  backdrop-filter: blur(35px);
+  min-width: 750px;
+  box-shadow: 0 0 5px 1px rgba(30, 30, 30, 0.5);
+}
+.player-controls.player-between {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.drag-control {
+  position: relative;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+.drag-control::before {
+  content: '';
+  width: 100%;
+  position: absolute;
+  height: 15px;
+  top: -5px;
+}
+.drag-control-bar {
+  position: absolute;
+  height: 100%;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  transition: width 150ms, background-color 150ms;
+}
+.drag-control:hover .drag-control-bar {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.drag-control span.button {
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255);
+  transition: left 150ms;
+  pointer-events: none;
+}
+.player-time {
+  display: flex;
+  flex-shrink: 0;
+  font-size: 0.86rem;
+  font-weight: bold;
+  width: 60px;
+  align-items: center;
+  justify-content: center;
+}
+.player-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.button {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  height: 30px;
+  width: 30px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.button.button-text {
+  width: unset;
+  height: unset;
+  padding: 10px 15px;
+  -webkit-app-region: no-drag;
+}
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+.button.button-big {
+  height: 45px;
+  width: 45px;
+}
+.custom-input {
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+.custom-input input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
 }
