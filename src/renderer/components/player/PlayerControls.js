@@ -24,7 +24,9 @@ export default function PlayerControls() {
   var videoPlayer = document.getElementById('videoPlayed');
 
   const playVid = () => {
-    videoPlayer.play();
+    if (videoPlayer.src.slice(0, 4) === 'file') {
+      videoPlayer.play();
+    }
   };
 
   const pauseVid = () => {

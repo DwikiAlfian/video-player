@@ -344,4 +344,21 @@ body.open-explore .chevron-left {
 }
 .history-content {
   padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.history-tile {
+  background-color: rgba(50, 50, 50);
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+.history-tile span {
+  font-size: 0.8rem;
+  color: rgba(125, 125, 125);
+}
+.history-tile:hover {
+  background-color: rgba(60, 60, 60);
 }

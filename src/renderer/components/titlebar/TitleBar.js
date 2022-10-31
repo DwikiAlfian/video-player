@@ -4,7 +4,7 @@ import { FiMinus } from 'react-icons/fi';
 import { VscWindow } from 'react-icons/vsc';
 import { SiPlayerfm } from 'react-icons/si';
 
-export default function TitleBar() {
+export default function TitleBar({ history, setHistory }) {
   const [title, setTitle] = useState();
   const [drawer, setDrawer] = useState(true);
 
@@ -16,6 +16,11 @@ export default function TitleBar() {
     }
   }, [drawer]);
 
+  useEffect(() => {
+    setDrawer(false);
+    // document.body.classList.remove('open-explore');
+  }, [history]);
+
   const changeVideo = (e) => {
     e.currentTarget.blur();
     if (e.target.files[0]?.path) {
@@ -23,6 +28,15 @@ export default function TitleBar() {
         'videoPlayed'
       ).src = `file://${e.target.files[0]?.path}`;
       setTitle(e.target.files[0]?.name);
+      setHistory((prevState) => {
+        return [
+          {
+            name: e.target.files[0]?.name,
+            url: `file://${e.target.files[0]?.path}`,
+          },
+          ...prevState,
+        ];
+      });
     }
   };
 

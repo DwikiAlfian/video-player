@@ -1,6 +1,21 @@
 import React from 'react';
 
-export default function History() {
+export default function History({ history, setHistory }) {
+  const changeVideo = (name, url) => {
+    if (name) {
+      document.getElementById('videoPlayed').src = url;
+      // setHistory((prevState) => {
+      //   return [
+      //     {
+      //       name: name,
+      //       url: url,
+      //     },
+      //     ...prevState,
+      //   ];
+      // });
+    }
+  };
+
   return (
     <>
       <div className="history">
@@ -8,7 +23,27 @@ export default function History() {
           <h1>History</h1>
         </div>
         <div className="history-content">
-          <span>You currently doesn't have any video history</span>
+          {history ? (
+            history.map((hist) => {
+              return (
+                <>
+                  <div
+                    className="history-tile"
+                    onClick={() => {
+                      changeVideo(hist?.name, hist?.url);
+                    }}
+                  >
+                    <h4>{hist?.name}</h4>
+                    <span>{hist?.url}</span>
+                  </div>
+                </>
+              );
+            })
+          ) : (
+            <>
+              <span>No histories recorded yet</span>
+            </>
+          )}
         </div>
       </div>
     </>

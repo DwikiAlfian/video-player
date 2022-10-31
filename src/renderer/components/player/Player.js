@@ -1,7 +1,7 @@
 import React from 'react';
 import PlayerControls from './PlayerControls';
 
-export default function Player() {
+export default function Player({ history, setHistory }) {
   let hideBar;
 
   const mouseMoveHandler = () => {
