@@ -5,8 +5,9 @@ import { CgChevronDoubleLeftO, CgChevronDoubleRightO } from 'react-icons/cg';
 import useTooltip from 'renderer/hooks/useTooltip';
 import useMouseOver from 'renderer/hooks/useMouseOver';
 import useAdvancedAlert from 'renderer/hooks/useAdvancedAlert';
+import useVolume from 'renderer/hooks/useVolume';
 
-export default function PlayerControls() {
+export default function PlayerControls({ timeoutFunction }) {
   const [length, setLength] = useState();
   const [currentTime, setCurrentTime] = useState();
   const [seekTime, setSeekTime] = useState(0);
@@ -14,7 +15,7 @@ export default function PlayerControls() {
   const setTimeInterval = (vid) => {
     setInterval(() => {
       setCurrentTime(vid.currentTime);
-    }, 1000);
+    }, 500);
   };
 
   useEffect(() => {
@@ -50,9 +51,11 @@ export default function PlayerControls() {
   document.onkeydown = (e) => {
     if (e.key == 'ArrowRight') {
       videoPlayer.currentTime += 5;
+      useAdvancedAlert('success', 'Skipped Forward 5sec');
     }
     if (e.key == 'ArrowLeft') {
       videoPlayer.currentTime -= 5;
+      useAdvancedAlert('success', 'Skipped Backward 5sec');
     }
     if (e.key == ' ') {
       try {
@@ -88,7 +91,13 @@ export default function PlayerControls() {
   //   }, []);
   return (
     <>
-      <div className="player-controls-container">
+      <div
+        className="player-controls-container"
+        onMouseMove={(e) => {
+          e.stopPropagation();
+          timeoutFunction();
+        }}
+      >
         <div className="player-controls">
           <div className="player-inline">
             <span className="player-time">
@@ -185,8 +194,14 @@ export default function PlayerControls() {
               <BsStopCircleFill size={15} />
             </div>
           </div>
-          <div className="button">
-            <HiVolumeUp size={14} />
+          <div
+            onClick={(e) => {
+              useVolume(e);
+            }}
+          >
+            <div className="button">
+              <HiVolumeUp size={14} />
+            </div>
           </div>
         </div>
       </div>

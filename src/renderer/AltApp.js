@@ -7,6 +7,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 export default function AltApp() {
   // Local State
   const [title, setTitle] = useState('');
+  const [drawer, setDrawer] = useState(true);
 
   // Local History State
   const [history, setHistory] = useState([]);
@@ -31,6 +32,8 @@ export default function AltApp() {
         setHistory={setHistory}
         title={title}
         setTitle={setTitle}
+        drawer={drawer}
+        setDrawer={setDrawer}
       />
       <div id="exploreMedia">
         <Explore
@@ -41,7 +44,12 @@ export default function AltApp() {
         />
       </div>
       <div id="playerMedia" style={{ width: '100%', height: '100%' }}>
-        <Player history={history} setHistory={setHistory} />
+        <Player
+          history={history}
+          setHistory={setHistory}
+          drawer={drawer}
+          setDrawer={setDrawer}
+        />
       </div>
     </>
   );

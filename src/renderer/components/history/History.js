@@ -1,4 +1,7 @@
 import React from 'react';
+import useChangeVideo from 'renderer/hooks/useChangeVideo';
+import { HiPlay } from 'react-icons/hi';
+import useTooltip from 'renderer/hooks/useTooltip';
 
 export default function History({ history, setHistory, title, setTitle }) {
   const changeVideo = (name, url) => {
@@ -6,6 +9,7 @@ export default function History({ history, setHistory, title, setTitle }) {
       document.getElementById('videoPlayed').src = url;
       setTitle(name);
     }
+    useChangeVideo(false, setTitle, false, name, url);
   };
 
   return (
@@ -19,14 +23,22 @@ export default function History({ history, setHistory, title, setTitle }) {
             history.map((hist) => {
               return (
                 <>
-                  <div
-                    className="history-tile"
-                    onClick={() => {
-                      changeVideo(hist?.name, hist?.url);
-                    }}
-                  >
-                    <h4>{hist?.name}</h4>
-                    <span>{hist?.url}</span>
+                  <div className="history-tile">
+                    <div
+                      onMouseEnter={(e) => {
+                        useTooltip(e, 'Play video');
+                      }}
+                      onClick={() => {
+                        changeVideo(hist?.name, hist?.url);
+                      }}
+                      className="button"
+                    >
+                      <HiPlay size={24} />
+                    </div>
+                    <div className="flex-column">
+                      <h4>{hist?.name}</h4>
+                      <span>{hist?.url}</span>
+                    </div>
                   </div>
                 </>
               );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PlayerControls from './PlayerControls';
 
-export default function Player({ history, setHistory }) {
+export default function Player({ history, setHistory, drawer, setDrawer }) {
   let hideBar;
 
   const mouseMoveHandler = () => {
@@ -12,6 +12,11 @@ export default function Player({ history, setHistory }) {
     }, 4500);
   };
 
+  const mouseEnterHandler = () => {
+    document.body.classList.remove('hide');
+    clearTimeout(hideBar);
+  };
+
   return (
     <>
       <div
@@ -20,11 +25,21 @@ export default function Player({ history, setHistory }) {
           mouseMoveHandler();
         }}
       >
-        <video src="" id="videoPlayed" className="video-player" autoPlay={true}>
-          <source src="" type="video/mp4" />
+        <span className="overlay-text">Click to expand</span>
+        <video
+          onClick={() => {
+            setDrawer(false);
+            console.log('CLICKED');
+          }}
+          src=""
+          id="videoPlayed"
+          className="video-player"
+          autoPlay={true}
+        >
+          <source type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <PlayerControls />
+        <PlayerControls timeoutFunction={mouseEnterHandler} />
       </div>
     </>
   );

@@ -5,10 +5,16 @@ import { VscWindow } from 'react-icons/vsc';
 import { SiPlayerfm } from 'react-icons/si';
 import useDropdown from 'renderer/hooks/useDropdown';
 import { useNavigate, useLocation } from 'react-router-dom';
+import useChangeVideo from 'renderer/hooks/useChangeVideo';
 
-export default function TitleBar({ history, setHistory, title, setTitle }) {
-  const [drawer, setDrawer] = useState(true);
-
+export default function TitleBar({
+  history,
+  setHistory,
+  title,
+  setTitle,
+  drawer,
+  setDrawer,
+}) {
   const location = useLocation();
   useEffect(() => {
     console.log('Pathnames changed');
@@ -27,33 +33,7 @@ export default function TitleBar({ history, setHistory, title, setTitle }) {
   }, [history, title]);
 
   const changeVideo = (e) => {
-    e.currentTarget.blur();
-    if (e.target.files[0]?.path) {
-      document.getElementById(
-        'videoPlayed'
-      ).src = `file://${e.target.files[0]?.path}`;
-      setTitle(e.target.files[0]?.name);
-      setHistory((prevState) => {
-        if (prevState) {
-          return [
-            {
-              name: e.target.files[0]?.name,
-              url: `file://${e.target.files[0]?.path}`,
-              date: Date.now(),
-            },
-            ...prevState,
-          ];
-        } else {
-          return [
-            {
-              name: e.target.files[0]?.name,
-              url: `file://${e.target.files[0]?.path}`,
-              date: Date.now(),
-            },
-          ];
-        }
-      });
-    }
+    useChangeVideo(e, setTitle, setHistory);
   };
 
   return (
@@ -71,7 +51,7 @@ export default function TitleBar({ history, setHistory, title, setTitle }) {
           </div>
           <span id="videoTitle">{title}</span>
         </div>
-        <button
+        {/* <button
           className="button button-text"
           onClick={(e) => {
             useDropdown(e, [
@@ -87,25 +67,27 @@ export default function TitleBar({ history, setHistory, title, setTitle }) {
           }}
         >
           Open
-        </button>
-        <div
-          className="custom-input"
-          onMouseDown={() => {
-            document.getElementById('customInput').click();
-          }}
-        >
-          <button className="button button-text">
-            <BsChevronDown size={12} />
-          </button>
-          <input
-            id="customInput"
+        </button> */}
+        <div className="flex-inline gap-5">
+          <div
             className="custom-input"
-            onChange={(e) => {
-              changeVideo(e);
-              e.currentTarget.parentElement.blur();
+            onMouseDown={() => {
+              document.getElementById('customInput').click();
             }}
-            type="file"
-          />
+          >
+            <button className="button button-text">
+              <BsChevronDown size={12} />
+            </button>
+            <input
+              id="customInput"
+              className="custom-input"
+              onChange={(e) => {
+                changeVideo(e);
+                e.currentTarget.parentElement.blur();
+              }}
+              type="file"
+            />
+          </div>
         </div>
         <div className="app-icons">
           <button className="app-title-icon">

@@ -14,12 +14,11 @@ export default function useTooltip(e, text) {
 `;
 
   const usingOverlay = () => {
-    console.log('Moving mouse');
     useOverlay(words, 'tooltip', true);
   };
-
+  let theTimeout;
   const tooltipFunction = () => {
-    const theTimeout = setTimeout(() => {
+    theTimeout = setTimeout(() => {
       usingOverlay();
     }, 800);
     e.currentTarget.onmouseleave = () => {
