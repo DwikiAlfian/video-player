@@ -25,7 +25,6 @@ export default function Player({ history, setHistory, drawer, setDrawer }) {
           mouseMoveHandler();
         }}
       >
-        <span className="overlay-text">Click to expand</span>
         <video
           onClick={() => {
             setDrawer(false);
