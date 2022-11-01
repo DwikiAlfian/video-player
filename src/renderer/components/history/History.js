@@ -1,18 +1,10 @@
 import React from 'react';
 
-export default function History({ history, setHistory }) {
+export default function History({ history, setHistory, title, setTitle }) {
   const changeVideo = (name, url) => {
     if (name) {
       document.getElementById('videoPlayed').src = url;
-      // setHistory((prevState) => {
-      //   return [
-      //     {
-      //       name: name,
-      //       url: url,
-      //     },
-      //     ...prevState,
-      //   ];
-      // });
+      setTitle(name);
     }
   };
 

@@ -21,6 +21,15 @@ body {
 #root {
   height: 100%;
 }
+#overlay {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 120000;
+  pointer-events: none;
+}
 .app-title {
   padding: 10px;
   padding-right: 160px;
@@ -361,4 +370,112 @@ body.open-explore .chevron-left {
 }
 .history-tile:hover {
   background-color: rgba(60, 60, 60);
+}
+
+.tooltip {
+  background-color: rgba(175, 175, 175, 0.2);
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 10px));
+  padding: 5px;
+  border-radius: 4px;
+  backdrop-filter: blur(15px);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.mouse-tooltip {
+  display: flex;
+  position: absolute;
+  background-color: rgba(175, 175, 175, 0.2);
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  pointer-events: none;
+  /* white-space: nowrap; */
+  max-width: 450px;
+  width: max-content;
+  box-shadow: 0 3px 8px 1px rgba(30, 30, 30, 0.55);
+  transform: translateY(calc(-100% - 10px));
+  backdrop-filter: blur(15px);
+}
+.mouse-tooltip.center {
+  transform: translateX(-50%) translateY(calc(-100% - 10px));
+}
+.mouse-tooltip.left {
+  transform: translateX(-100%) translateY(calc(-100% - 10px));
+}
+
+.advanced-alert {
+  position: fixed;
+  box-shadow: 0 3px 10px 1px rgba(30, 30, 30, 0.35);
+  right: -105%;
+  top: 90px;
+  padding: 5px 10px 5px 5px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  animation-name: advanced-alert;
+  animation-duration: 9000ms;
+  max-width: 450px;
+  width: max-content;
+  backdrop-filter: blur(15px);
+  background-color: rgba(30, 30, 30, 0.25);
+}
+.advanced-alert svg {
+  display: block;
+  height: 30px;
+  width: 30px;
+  flex-shrink: 0;
+  fill: rgba(255, 255, 255, 0.55);
+}
+.advanced-alert span.span-text {
+  font-weight: bold;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+@keyframes advanced-alert {
+  0% {
+    right: -105%;
+  }
+  7% {
+    right: 35px;
+  }
+  9% {
+    right: 15px;
+  }
+  50% {
+    right: 15px;
+  }
+  52% {
+    right: 35px;
+  }
+  62% {
+    right: -105%;
+  }
+}
+
+.element-dropdown {
+  position: absolute;
+  transform: translate(-50%, 5px);
+  background-color: rgba(75, 75, 75, 0.5);
+  padding: 10px 0;
+  border-radius: 7px;
+  backdrop-filter: blur(15px);
+  min-width: 150px;
+}
+.element-dropdown a {
+  display: block;
+  cursor: pointer;
+  pointer-events: all;
+  background-color: rgba(30, 30, 30, 0.15);
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  color: white;
+  text-decoration: none;
+}
+.element-dropdown a:hover {
+  background-color: rgba(30, 30, 30, 0.35);
 }

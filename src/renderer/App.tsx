@@ -1,8 +1,18 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from 'react-router-dom';
 import AltApp from './AltApp';
 import './App.css';
 
 const MainApp = () => {
+  const location = useLocation();
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
   return (
     <>
       <AltApp />

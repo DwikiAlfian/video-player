@@ -3,10 +3,16 @@ import { BsX, BsChevronCompactLeft, BsChevronDown } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
 import { VscWindow } from 'react-icons/vsc';
 import { SiPlayerfm } from 'react-icons/si';
+import useDropdown from 'renderer/hooks/useDropdown';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-export default function TitleBar({ history, setHistory }) {
-  const [title, setTitle] = useState();
+export default function TitleBar({ history, setHistory, title, setTitle }) {
   const [drawer, setDrawer] = useState(true);
+
+  const location = useLocation();
+  useEffect(() => {
+    console.log('Pathnames changed');
+  }, [location]);
 
   useEffect(() => {
     if (drawer) {
@@ -18,8 +24,7 @@ export default function TitleBar({ history, setHistory }) {
 
   useEffect(() => {
     setDrawer(false);
-    // document.body.classList.remove('open-explore');
-  }, [history]);
+  }, [history, title]);
 
   const changeVideo = (e) => {
     e.currentTarget.blur();
@@ -29,13 +34,24 @@ export default function TitleBar({ history, setHistory }) {
       ).src = `file://${e.target.files[0]?.path}`;
       setTitle(e.target.files[0]?.name);
       setHistory((prevState) => {
-        return [
-          {
-            name: e.target.files[0]?.name,
-            url: `file://${e.target.files[0]?.path}`,
-          },
-          ...prevState,
-        ];
+        if (prevState) {
+          return [
+            {
+              name: e.target.files[0]?.name,
+              url: `file://${e.target.files[0]?.path}`,
+              date: Date.now(),
+            },
+            ...prevState,
+          ];
+        } else {
+          return [
+            {
+              name: e.target.files[0]?.name,
+              url: `file://${e.target.files[0]?.path}`,
+              date: Date.now(),
+            },
+          ];
+        }
       });
     }
   };
@@ -44,7 +60,7 @@ export default function TitleBar({ history, setHistory }) {
     <>
       <div className="app-title">
         <div className="flex-inline gap-15">
-          <button
+          <div
             className="button button-icon-back"
             onClick={() => {
               setDrawer((prevState) => !prevState);
@@ -52,9 +68,26 @@ export default function TitleBar({ history, setHistory }) {
           >
             <BsChevronCompactLeft className="chevron-left" size={18} />
             <SiPlayerfm size={24} />
-          </button>
+          </div>
           <span id="videoTitle">{title}</span>
         </div>
+        <button
+          className="button button-text"
+          onClick={(e) => {
+            useDropdown(e, [
+              {
+                name: 'Settings',
+                link: '/settings',
+              },
+              {
+                name: 'About',
+                link: '/about',
+              },
+            ]);
+          }}
+        >
+          Open
+        </button>
         <div
           className="custom-input"
           onMouseDown={() => {
