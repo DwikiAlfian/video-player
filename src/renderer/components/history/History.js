@@ -58,6 +58,10 @@ export default function History({ history, setHistory, title, setTitle }) {
               return (
                 <>
                   <div className="history-tile">
+                    <div className="flex-column">
+                      <h4>{hist?.name}</h4>
+                      <span>{hist?.url}</span>
+                    </div>
                     <div
                       onMouseEnter={(e) => {
                         useTooltip(e, 'Play video');
@@ -68,10 +72,6 @@ export default function History({ history, setHistory, title, setTitle }) {
                       className="button"
                     >
                       <HiPlay size={29} />
-                    </div>
-                    <div className="flex-column">
-                      <h4>{hist?.name}</h4>
-                      <span>{hist?.url}</span>
                     </div>
                   </div>
                 </>

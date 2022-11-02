@@ -7,28 +7,11 @@ export default function Player({
   drawer,
   setDrawer,
   hideBar,
+  mouseEnterHandler,
 }) {
-  const mouseMoveHandler = () => {
-    document.body.classList.remove('hide');
-    clearTimeout(hideBar);
-    hideBar = setTimeout(() => {
-      document.body.classList.add('hide');
-    }, 6500);
-  };
-
-  const mouseEnterHandler = () => {
-    document.body.classList.remove('hide');
-    clearTimeout(hideBar);
-  };
-
   return (
     <>
-      <div
-        className="player-container"
-        onMouseMove={(e) => {
-          mouseMoveHandler();
-        }}
-      >
+      <div className="player-container">
         <video
           onClick={() => {
             setDrawer(false);

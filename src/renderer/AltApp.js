@@ -50,6 +50,7 @@ export default function AltApp() {
         setTitle={setTitle}
         drawer={drawer}
         setDrawer={setDrawer}
+        mouseEnterHandler={mouseEnterHandler}
       />
       <div
         id="exploreMedia"
@@ -77,6 +78,7 @@ export default function AltApp() {
           drawer={drawer}
           setDrawer={setDrawer}
           hidebar={hideBar}
+          mouseEnterHandler={mouseEnterHandler}
         />
       </div>
     </>

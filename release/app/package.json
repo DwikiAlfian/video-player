@@ -1,6 +1,6 @@
 {
-  "name": "Electron Video Player",
-  "version": "0.1a",
+  "name": "ElectronVideoPlayer",
+  "version": "0.0.1",
   "description": "React Electron Video player",
   "license": "MIT",
   "author": {

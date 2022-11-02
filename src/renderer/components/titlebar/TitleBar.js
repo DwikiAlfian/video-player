@@ -14,6 +14,7 @@ export default function TitleBar({
   setTitle,
   drawer,
   setDrawer,
+  mouseEnterHandler,
 }) {
   // ==================
   // Title Bar Function
@@ -54,7 +55,13 @@ export default function TitleBar({
 
   return (
     <>
-      <div className="app-title">
+      <div
+        className="app-title"
+        onMouseMove={(e) => {
+          e.stopPropagation();
+          mouseEnterHandler();
+        }}
+      >
         <div className="flex-inline gap-15">
           <div
             className="button button-icon-back"
@@ -85,7 +92,7 @@ export default function TitleBar({
           Open
         </button> */}
         <div className="flex-inline gap-5">
-          <div
+          {/* <div
             className="custom-input"
             onMouseDown={() => {
               document.getElementById('customInput').click();
@@ -103,7 +110,7 @@ export default function TitleBar({
               }}
               type="file"
             />
-          </div>
+          </div> */}
         </div>
         <div className="app-icons">
           <button
