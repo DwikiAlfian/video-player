@@ -1,9 +1,13 @@
 import React from 'react';
 import PlayerControls from './PlayerControls';
 
-export default function Player({ history, setHistory, drawer, setDrawer }) {
-  let hideBar;
-
+export default function Player({
+  history,
+  setHistory,
+  drawer,
+  setDrawer,
+  hideBar,
+}) {
   const mouseMoveHandler = () => {
     document.body.classList.remove('hide');
     clearTimeout(hideBar);
@@ -21,14 +25,13 @@ export default function Player({ history, setHistory, drawer, setDrawer }) {
     <>
       <div
         className="player-container"
-        onMouseMove={() => {
+        onMouseMove={(e) => {
           mouseMoveHandler();
         }}
       >
         <video
           onClick={() => {
             setDrawer(false);
-            console.log('CLICKED');
           }}
           src=""
           id="videoPlayed"

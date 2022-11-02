@@ -25,6 +25,22 @@ export default function AltApp() {
     setHistory(savedHistory);
   }, []);
 
+  // Auto Hide Controls
+  let hideBar;
+
+  const mouseMoveHandler = () => {
+    document.body.classList.remove('hide');
+    clearTimeout(hideBar);
+    hideBar = setTimeout(() => {
+      document.body.classList.add('hide');
+    }, 6500);
+  };
+
+  const mouseEnterHandler = () => {
+    document.body.classList.remove('hide');
+    clearTimeout(hideBar);
+  };
+
   return (
     <>
       <TitleBar
@@ -35,7 +51,12 @@ export default function AltApp() {
         drawer={drawer}
         setDrawer={setDrawer}
       />
-      <div id="exploreMedia">
+      <div
+        id="exploreMedia"
+        onMouseMove={() => {
+          mouseMoveHandler();
+        }}
+      >
         <Explore
           history={history}
           setHistory={setHistory}
@@ -43,12 +64,19 @@ export default function AltApp() {
           setTitle={setTitle}
         />
       </div>
-      <div id="playerMedia" style={{ width: '100%', height: '100%' }}>
+      <div
+        id="playerMedia"
+        onMouseMove={() => {
+          mouseMoveHandler();
+        }}
+        style={{ width: '100%', height: '100%' }}
+      >
         <Player
           history={history}
           setHistory={setHistory}
           drawer={drawer}
           setDrawer={setDrawer}
+          hidebar={hideBar}
         />
       </div>
     </>
