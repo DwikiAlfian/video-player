@@ -64,7 +64,7 @@ export default function TitleBar({
       >
         <div className="flex-inline gap-15">
           <div
-            className="button button-icon-back"
+            className="button button-icon-back will-hide"
             onClick={() => {
               setDrawer((prevState) => !prevState);
             }}
@@ -72,7 +72,9 @@ export default function TitleBar({
             <BsChevronCompactLeft className="chevron-left" size={18} />
             <SiPlayerfm size={24} />
           </div>
-          <span id="videoTitle">{title}</span>
+          <span id="videoTitle" className="will-hide">
+            {title}
+          </span>
         </div>
         {/* <button
           className="button button-text"
@@ -91,14 +93,15 @@ export default function TitleBar({
         >
           Open
         </button> */}
-        <div className="flex-inline gap-5">
-          {/* <div
+        <div className="flex-inline gap-5 will-show">
+          <div
             className="custom-input"
             onMouseDown={() => {
               document.getElementById('customInput').click();
             }}
           >
             <button className="button button-text">
+              Open File
               <BsChevronDown size={12} />
             </button>
             <input
@@ -110,7 +113,7 @@ export default function TitleBar({
               }}
               type="file"
             />
-          </div> */}
+          </div>
         </div>
         <div className="app-icons">
           <button

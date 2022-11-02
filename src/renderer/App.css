@@ -58,7 +58,7 @@ body {
   gap: 10px;
   z-index: 100000;
   top: 10px;
-  left: 10px;
+  right: 10px;
   width: calc(100% - 20px);
   border-radius: 7px;
   background-color: rgba(30, 30, 30, 0.7);
@@ -67,9 +67,10 @@ body {
   justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(35px);
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 0 15px 5px rgba(30, 30, 30, 0.5);
-  transition: transform 550ms, background-color 250ms;
+  transition: transform 550ms, background-color 250ms, backdrop-filter 250ms,
+    width 450ms;
   -webkit-app-region: drag;
 }
 body.hide .app-title {
@@ -77,7 +78,29 @@ body.hide .app-title {
 }
 body.open-explore .app-title {
   transform: translateY(0) !important;
-  background-color: rgba(70, 70, 70, 0.5);
+  background-color: rgba(70, 70, 70, 0);
+  backdrop-filter: blur(0px);
+  box-shadow: 0 0 15px 5px rgba(30, 30, 30, 0);
+  width: calc(100% - 80px);
+}
+.app-title .will-hide {
+  transition: opacity 250ms;
+}
+.app-title .button.button-text {
+  white-space: nowrap;
+}
+body.open-explore .app-title .will-hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.app-title .will-show {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms;
+}
+body.open-explore .app-title .will-show {
+  opacity: 1;
+  pointer-events: all;
 }
 .app-title span {
   font-size: 0.86rem;
@@ -91,6 +114,11 @@ body.open-explore .app-title {
   height: 100%;
   display: flex;
   flex-direction: row;
+  border-radius: 7px;
+  overflow: hidden;
+  background-color: rgba(125, 125, 125, 0.4);
+}
+body.open-explore .app-icons {
 }
 .app-title-icon {
   background-color: rgba(10, 10, 10, 0.25);
@@ -116,6 +144,10 @@ body.open-explore .app-title {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 .gap-5 {
@@ -359,7 +391,6 @@ body.open-explore .chevron-left {
   display: flex;
   flex-direction: row;
   padding: 10px;
-  padding-top: 80px;
   height: 100%;
   gap: 10px;
   background-image: linear-gradient(55deg, rgba(10, 10, 10), rgba(60, 10, 30));
@@ -392,25 +423,31 @@ body.open-explore .chevron-left {
 }
 .history {
   /* background-image: linear-gradient(45deg, rgba(30, 30, 30), rgba(30, 30, 30)); */
+  display: flex;
   border-radius: 7px;
   width: 100%;
+  flex-direction: column;
   /* padding: 10px; */
+  height: 100%;
   overflow-y: auto;
+  gap: 10px;
 }
 .history-title {
   height: 75px;
   border-radius: 7px 7px 0 0;
-  padding: 10px;
+  /* padding: 10px; */
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
+  flex-shrink: 0;
 }
 .history-content {
-  padding: 10px;
+  /* padding: 10px; */
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
   overflow-y: auto;
+  flex-shrink: 0;
 }
 .history-tile {
   display: flex;
@@ -423,6 +460,10 @@ body.open-explore .chevron-left {
   justify-content: space-between;
   gap: 15px;
   transition: background-color 150ms;
+}
+.history-tile.history-tile-alt {
+  min-height: 225px;
+  align-items: flex-end;
 }
 .history-tile h4 {
   word-break: break-all;
@@ -452,7 +493,7 @@ body.open-explore .chevron-left {
 }
 .history-recent-content .history-tile {
   width: 100%;
-  min-height: 200px;
+  min-height: 300px;
   position: relative;
   padding: 25px;
   align-items: flex-end;
@@ -470,6 +511,18 @@ body.open-explore .chevron-left {
 .history-recent-content .history-tile .button:hover {
   color: rgba(255, 255, 255);
 }
+.url-short {
+  display: block;
+  color: transparent !important;
+  background-image: linear-gradient(
+    90deg,
+    rgba(150, 150, 150) 75%,
+    rgba(150, 150, 150, 0)
+  );
+  background-clip: text;
+  width: fit-content;
+  -webkit-background-clip: text;
+}
 
 .tooltip {
   background-color: rgba(175, 175, 175, 0.2);
@@ -477,10 +530,12 @@ body.open-explore .chevron-left {
   transform: translate(-50%, calc(-100% - 10px));
   padding: 5px 10px;
   border-radius: 4px;
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(35px);
   font-size: 0.8rem;
   font-weight: bold;
-  white-space: nowrap;
+  /* white-space: nowrap; */
+  word-break: break-all;
+  max-width: 300px;
 }
 .mouse-tooltip {
   display: flex;
