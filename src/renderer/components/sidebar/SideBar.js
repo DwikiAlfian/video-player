@@ -12,7 +12,7 @@ export default function SideBar() {
           }}
           className={`sidelist ${tabs === 0 && 'sidelist-active'}`}
         >
-          History
+          H
         </span>
         <span
           onClick={() => {
@@ -20,7 +20,7 @@ export default function SideBar() {
           }}
           className={`sidelist ${tabs === 1 && 'sidelist-active'}`}
         >
-          Playlist
+          P
         </span>
       </div>
     </>

@@ -15,11 +15,27 @@ export default function TitleBar({
   drawer,
   setDrawer,
 }) {
-  const location = useLocation();
-  useEffect(() => {
-    console.log('Pathnames changed');
-  }, [location]);
+  // ==================
+  // Title Bar Function
+  // Calling IPC Renderer
+  const ipcRenderer = window.require('electron')?.ipcRenderer;
 
+  // Close Window Function
+  const closeWindow = () => {
+    ipcRenderer?.invoke('close-event');
+  };
+
+  // Minimize Window Function
+  const minimizeWindow = () => {
+    ipcRenderer?.invoke('minimize-event');
+  };
+
+  // Maximize Window Function
+  const maximizeWindow = () => {
+    ipcRenderer?.invoke('maximize-event');
+  };
+
+  // Drawer
   useEffect(() => {
     if (drawer) {
       document.body.classList.add('open-explore');
@@ -90,13 +106,28 @@ export default function TitleBar({
           </div>
         </div>
         <div className="app-icons">
-          <button className="app-title-icon">
+          <button
+            onClick={() => {
+              minimizeWindow();
+            }}
+            className="app-title-icon"
+          >
             <FiMinus size={20} />
           </button>
-          <button className="app-title-icon">
+          <button
+            onClick={() => {
+              maximizeWindow();
+            }}
+            className="app-title-icon"
+          >
             <VscWindow size={14} />
           </button>
-          <button className="app-title-icon app-title-icon-close">
+          <button
+            onClick={() => {
+              closeWindow();
+            }}
+            className="app-title-icon app-title-icon-close"
+          >
             <BsX size={24} />
           </button>
         </div>

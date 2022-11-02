@@ -131,9 +131,6 @@ body.open-explore .app-title {
 }
 
 .sidebar {
-  width: 250px;
-  background-color: rgba(20, 20, 20);
-  height: 100%;
 }
 
 .player-container {
@@ -150,22 +147,30 @@ body.open-explore .app-title {
   gap: 15px;
 }
 .video-player {
+  position: absolute;
   width: 100%;
   height: 100%;
+  bottom: 0;
+  right: 0;
   transform-origin: bottom right;
-  transition: transform 350ms, right 550ms, box-shadow 250ms;
+  transition: width 450ms, height 450ms, transform 150ms ease-in-out,
+    right 150ms, bottom 150ms, box-shadow 250ms;
 }
 body.open-explore .video-player {
   position: fixed;
-  border-radius: 75px;
+  border-radius: 10px;
   pointer-events: all;
   box-shadow: 0 85px 35px -50px rgba(10, 10, 10, 0.55);
-  transform: scaleY(25%) scaleX(25%) translateY(-150px) translateX(-150px);
+  width: 25%;
+  height: 25%;
+  bottom: 35px;
+  right: 35px;
   transform-origin: bottom right;
   cursor: pointer;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.15));
 }
 body.open-explore .video-player:hover {
-  transform: scaleY(25%) scaleX(25%) translateY(-190px) translateX(-150px);
+  transform: translateY(-7px);
   box-shadow: 0 100px 35px -50px rgba(10, 10, 10, 0.55);
 }
 body.open-explore #playerMedia {
@@ -356,11 +361,14 @@ body.open-explore .chevron-left {
   padding-top: 80px;
   height: 100%;
   gap: 10px;
+  background-image: linear-gradient(55deg, rgba(10, 10, 10), rgba(60, 10, 30));
 }
 .sidebar {
+  width: 50px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgba(30, 30, 30);
+  background-color: rgba(70, 70, 70, 0.5);
   height: 100%;
   border-radius: 7px;
   padding: 10px;
@@ -382,41 +390,36 @@ body.open-explore .chevron-left {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.75);
 }
 .history {
-  background-image: linear-gradient(45deg, rgba(30, 30, 30), rgba(30, 30, 30));
+  /* background-image: linear-gradient(45deg, rgba(30, 30, 30), rgba(30, 30, 30)); */
   border-radius: 7px;
   width: 100%;
   /* padding: 10px; */
   overflow-y: auto;
 }
 .history-title {
-  background-image: linear-gradient(
-    0deg,
-    rgba(40, 40, 40),
-    rgba(30, 30, 30, 0.1)
-  );
-  height: 150px;
+  height: 75px;
   border-radius: 7px 7px 0 0;
   padding: 10px;
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .history-content {
   padding: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 15px;
   overflow-y: auto;
 }
 .history-tile {
   display: flex;
   flex-direction: row;
-  background-color: rgba(50, 50, 50);
-  padding: 10px;
+  background-color: rgba(75, 75, 75, 0.5);
+  padding: 20px;
   border-radius: 7px;
   /* cursor: pointer; */
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   transition: background-color 150ms;
 }
 .history-tile h4 {
@@ -428,18 +431,49 @@ body.open-explore .chevron-left {
   word-break: break-all;
 }
 .history-tile:hover {
-  background-color: rgba(60, 60, 60);
+  background-color: rgba(90, 90, 90, 0.5);
+}
+.history-tile .button {
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0);
+  width: unset;
+  height: unset;
+}
+.history-recent-content {
+  display: flex;
+  width: 100%;
+}
+.history-recent-content .history-tile {
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+  padding: 25px;
+  align-items: flex-end;
+}
+.history-recent-content .history-tile .button {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  width: unset;
+  height: unset;
+  color: rgba(0, 200, 10);
+  background-color: rgba(255, 255, 255, 0);
+  transition: color 350ms;
+}
+.history-recent-content .history-tile .button:hover {
+  color: rgba(255, 255, 255);
 }
 
 .tooltip {
   background-color: rgba(175, 175, 175, 0.2);
   position: absolute;
   transform: translate(-50%, calc(-100% - 10px));
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 4px;
   backdrop-filter: blur(15px);
   font-size: 0.8rem;
   font-weight: bold;
+  white-space: nowrap;
 }
 .mouse-tooltip {
   display: flex;
@@ -481,7 +515,7 @@ body.open-explore .chevron-left {
   max-width: 450px;
   width: max-content;
   backdrop-filter: blur(15px);
-  background-color: rgba(30, 30, 30, 0.25);
+  background-color: rgba(75, 75, 75, 0.55);
 }
 .advanced-alert svg {
   display: block;

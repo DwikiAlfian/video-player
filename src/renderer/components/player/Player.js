@@ -9,7 +9,7 @@ export default function Player({ history, setHistory, drawer, setDrawer }) {
     clearTimeout(hideBar);
     hideBar = setTimeout(() => {
       document.body.classList.add('hide');
-    }, 4500);
+    }, 6500);
   };
 
   const mouseEnterHandler = () => {

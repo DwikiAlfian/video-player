@@ -78,9 +78,11 @@ const createWindow = async () => {
     icon: getAssetPath('icon.png'),
     webPreferences: {
       webSecurity: false,
-      preload: app.isPackaged
-        ? path.join(__dirname, 'preload.js')
-        : path.join(__dirname, '../../.erb/dll/preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      // preload: app.isPackaged
+      //   ? path.join(__dirname, 'preload.js')
+      //   : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
     frame: false,
   });
@@ -139,3 +141,23 @@ app
     });
   })
   .catch(console.log);
+
+// ====================
+// .:: Custom Event ::.
+// ====================
+// Quitting Application
+ipcMain.handle('close-event', () => {
+  app.quit();
+});
+// Minimize Application
+ipcMain.handle('minimize-event', () => {
+  mainWindow?.minimize();
+});
+// Maximize Application
+ipcMain.handle('maximize-event', () => {
+  mainWindow?.isMaximized() ? mainWindow?.unmaximize() : mainWindow?.maximize();
+});
+// Unmaximize Application
+ipcMain.handle('unmaximize-event', () => {
+  mainWindow?.unmaximize();
+});
