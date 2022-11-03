@@ -82,9 +82,13 @@ export default function AltApp() {
   var videoPlayer = document.getElementById('videoPlayed');
 
   const playVid = () => {
+    if (!title) {
+      useAdvancedAlert('danger', 'Please open a file first');
+      return;
+    }
     if (
-      videoPlayer.src.slice(-4) === '.mp4' ||
-      videoPlayer.src.slice(-4) === '.mkv'
+      videoPlayer.src.slice(-4).toLowerCase() === '.mp4' ||
+      videoPlayer.src.slice(-4).toLowerCase() === '.mkv'
     ) {
       if (videoPlayer.src.slice(0, 4) === 'file') {
         try {

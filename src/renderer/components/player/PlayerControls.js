@@ -106,7 +106,7 @@ export default function PlayerControls({
               useTooltip(e, 'Fullscreen (F11)');
             }}
           >
-            <MdFullscreen size={24} />
+            <MdFullscreen size={18} />
           </div>
           <div className="flex-inline gap-5 player-center">
             <div
@@ -144,9 +144,9 @@ export default function PlayerControls({
             </div>
           </div>
           <div
-            onClick={(e) => {
-              useVolume(e);
-            }}
+          // onClick={(e) => {
+          //   useVolume(e);
+          // }}
           >
             <div className="button button-off">
               <HiVolumeUp size={14} />
