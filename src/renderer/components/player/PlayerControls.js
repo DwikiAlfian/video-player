@@ -102,6 +102,9 @@ export default function PlayerControls({
             onClick={() => {
               fullscreenWindow();
             }}
+            onMouseEnter={(e) => {
+              useTooltip(e, 'Fullscreen (F11)');
+            }}
           >
             <MdFullscreen size={24} />
           </div>
@@ -145,7 +148,7 @@ export default function PlayerControls({
               useVolume(e);
             }}
           >
-            <div className="button">
+            <div className="button button-off">
               <HiVolumeUp size={14} />
             </div>
           </div>
