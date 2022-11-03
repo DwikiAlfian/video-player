@@ -83,6 +83,9 @@ body.open-explore .app-title {
   box-shadow: 0 0 15px 5px rgba(30, 30, 30, 0);
   width: calc(100% - 80px);
 }
+body.force-open .app-title {
+  transform: translateY(0);
+}
 .app-title .will-hide {
   transition: opacity 250ms;
 }
@@ -187,7 +190,8 @@ body.open-explore .app-icons {
   right: 0;
   transform-origin: bottom right;
   transition: width 450ms, height 450ms, transform 150ms ease-in-out,
-    right 150ms, bottom 150ms, box-shadow 250ms;
+    right 350ms, bottom 350ms, box-shadow 250ms;
+  background-color: rgba(10, 10, 10);
 }
 body.open-explore .video-player {
   position: fixed;
@@ -201,6 +205,7 @@ body.open-explore .video-player {
   transform-origin: bottom right;
   cursor: pointer;
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.15));
+  object-fit: cover;
 }
 body.open-explore .video-player:hover {
   transform: translateY(-7px);
@@ -241,6 +246,9 @@ body.hide .player-controls-container {
 }
 body.open-explore .player-controls-container {
   transform: translateY(125%) translateX(-50%) !important;
+}
+body.force-open .player-controls-container {
+  transform: translateY(0) translateX(-50%);
 }
 .player-controls {
   display: flex;
@@ -287,7 +295,7 @@ body.open-explore .player-controls-container {
   box-shadow: 0 0 10px 3px rgba(225, 0, 100, 0.55);
   background-color: rgba(225, 0, 100, 1);
 }
-.drag-control span.button {
+.drag-control span.button-bar {
   display: block;
   position: absolute;
   width: 15px;
@@ -431,9 +439,10 @@ body.open-explore .chevron-left {
   height: 100%;
   overflow-y: auto;
   gap: 10px;
+  padding: 25px;
 }
 .history-title {
-  height: 75px;
+  height: 55px;
   border-radius: 7px 7px 0 0;
   /* padding: 10px; */
   display: flex;
@@ -491,22 +500,91 @@ body.open-explore .chevron-left {
   display: flex;
   width: 100%;
 }
+.history-content.history-content-lists {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-left: 75px;
+  margin-top: 50px;
+  padding-top: 75px;
+}
+.history-content.history-content-lists .history-lists span.history-date {
+  font-size: 1rem;
+  font-weight: bold;
+  position: absolute;
+  top: -42px;
+  color: rgba(255, 255, 255, 0.5);
+  /* text-shadow: 0 0 17px rgba(255, 255, 255, 0.85); */
+  background-color: rgba(150, 150, 150, 0.15);
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+.history-content.history-content-lists .history-lists {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding-top: 25px;
+}
+.history-content.history-content-lists .history-lists::before {
+  content: '';
+  position: absolute;
+  top: -45px;
+  left: -45px;
+  width: 5px;
+  height: calc(100% - 19px);
+  background-image: linear-gradient(
+    0deg,
+    rgba(225, 0, 100, 0),
+    rgba(225, 0, 100, 0.55)
+  );
+  /* border-radius: 5px; */
+}
+.history-content.history-content-lists .history-lists::after {
+  content: '';
+  position: absolute;
+  top: -45px;
+  left: -60px;
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 255, 255);
+  box-shadow: 0 0 0 10px rgba(225, 0, 100) inset;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 15px rgba(225, 0, 100));
+}
+.history-content.history-content-lists .history-tile {
+  min-height: unset;
+  align-items: center;
+  padding: 15px 20px;
+}
 .history-recent-content .history-tile {
   width: 100%;
-  min-height: 300px;
+  /* min-height: 300px; */
   position: relative;
   padding: 25px;
   align-items: flex-end;
+  background-color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    rgba(150, 150, 150, 0.25),
+    rgba(150, 150, 150, 0)
+  );
+  overflow: unset;
+}
+.history-recent-content .history-tile .buttons {
+  display: flex;
+  flex-direction: row;
 }
 .history-recent-content .history-tile .button {
-  position: absolute;
-  right: 25px;
-  top: 25px;
   width: unset;
   height: unset;
   color: rgba(0, 200, 10);
   background-color: rgba(255, 255, 255, 0);
   transition: color 350ms;
+}
+.history-recent-content .history-tile .button.button-stop-alt {
+  color: rgba(150, 150, 150, 0.5);
 }
 .history-recent-content .history-tile .button:hover {
   color: rgba(255, 255, 255);
@@ -536,6 +614,7 @@ body.open-explore .chevron-left {
   /* white-space: nowrap; */
   word-break: break-all;
   max-width: 300px;
+  width: max-content;
 }
 .mouse-tooltip {
   display: flex;

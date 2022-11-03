@@ -1,6 +1,13 @@
 import React from 'react';
 
-export default function useChangeVideo(e, setTitle, setHistory, name, url) {
+export default function useChangeVideo(
+  e,
+  setTitle,
+  setCurrentUrl,
+  setHistory,
+  name,
+  url
+) {
   e && e.currentTarget.blur();
   if (e?.target?.files[0]?.path || url) {
     const thePath = !url && `file://${e.target.files[0]?.path}`;
@@ -9,13 +16,16 @@ export default function useChangeVideo(e, setTitle, setHistory, name, url) {
     if (setTitle) {
       setTitle(name ? name : e.target.files[0]?.name);
     }
+    if (setCurrentUrl) {
+      setCurrentUrl(url ? url : e.target.files[0]?.path);
+    }
     setHistory &&
       setHistory((prevState) => {
         if (prevState) {
           return [
             {
-              name: e.target.files[0]?.name,
-              url: filtered,
+              name: name ? name : e.target.files[0]?.name,
+              url: url ? url : filtered,
               date: Date.now(),
             },
             ...prevState,
@@ -23,8 +33,8 @@ export default function useChangeVideo(e, setTitle, setHistory, name, url) {
         } else {
           return [
             {
-              name: e.target.files[0]?.name,
-              url: filtered,
+              name: name ? name : e.target.files[0]?.name,
+              url: url ? url : filtered,
               date: Date.now(),
             },
           ];

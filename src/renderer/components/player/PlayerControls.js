@@ -7,95 +7,29 @@ import useMouseOver from 'renderer/hooks/useMouseOver';
 import useAdvancedAlert from 'renderer/hooks/useAdvancedAlert';
 import useVolume from 'renderer/hooks/useVolume';
 
-export default function PlayerControls({ timeoutFunction }) {
-  const [length, setLength] = useState();
-  const [currentTime, setCurrentTime] = useState();
-  const [seekTime, setSeekTime] = useState(0);
-
-  const setTimeInterval = (vid) => {
-    setInterval(() => {
-      setCurrentTime(vid.currentTime);
-    }, 500);
-  };
-
-  useEffect(() => {
-    var vid = document.getElementById('videoPlayed');
-    vid.onplaying = function () {
-      setLength(vid.duration);
-      setTimeInterval(vid);
-    };
-  }, []);
-
-  var videoPlayer = document.getElementById('videoPlayed');
-
-  const playVid = () => {
-    if (videoPlayer.src.slice(0, 4) === 'file') {
-      videoPlayer.play();
-      useAdvancedAlert('success', 'Playing now');
-    }
-  };
-
-  const pauseVid = () => {
-    var vid = document.getElementById('videoPlayed');
-    videoPlayer.pause();
-    useAdvancedAlert('primary', 'Paused');
-  };
-
-  const stopVid = () => {
-    var vid = document.getElementById('videoPlayed');
-    videoPlayer.pause();
-    videoPlayer.currentTime = 0;
-    useAdvancedAlert('danger', 'Stopped');
-  };
-
-  document.onkeydown = (e) => {
-    if (e.key == 'ArrowRight') {
-      videoPlayer.currentTime += 5;
-      useAdvancedAlert('success', 'Skipped Forward 5sec');
-    }
-    if (e.key == 'ArrowLeft') {
-      videoPlayer.currentTime -= 5;
-      useAdvancedAlert('success', 'Skipped Backward 5sec');
-    }
-    if (e.key == ' ') {
-      try {
-        if (videoPlayer.paused) {
-          playVid();
-        } else {
-          pauseVid();
-        }
-      } catch (e) {}
-    }
-  };
-
-  const seekTimeHandler = (e) => {
-    const currentLength = e.clientX - e.target.getBoundingClientRect().left - 7;
-    const width = e.target.getBoundingClientRect().width;
-
-    const percentage = (currentLength / width) * 100;
-    const time = (length * percentage) / 100;
-
-    setSeekTime(time);
-  };
-
-  const dragControlHandler = (e) => {
-    if (seekTime) {
-      videoPlayer.currentTime = seekTime;
-    }
-  };
-
-  //   useEffect(() => {
-  //     var vid = document.getElementById('videoPlayed');
-  //     vid.onplaying = function () {
-  //     };
-  //   }, []);
+export default function PlayerControls({
+  length,
+  setLength,
+  currentTime,
+  setCurrentTime,
+  seekTime,
+  setSeekTime,
+  setTimeInterval,
+  videoPlayer,
+  playVid,
+  pauseVid,
+  stopVid,
+  seekTimeHandler,
+  dragControlHandler,
+  mouseEnterHandler,
+  mouseLeaveHandler,
+}) {
   return (
     <>
       <div
         className="player-controls-container"
-        onMouseMove={(e) => {
-          e.stopPropagation();
-          timeoutFunction();
+        onMouseOver={(e) => {
+          mouseEnterHandler(e);
         }}
       >
         <div className="player-controls">
@@ -134,7 +68,7 @@ export default function PlayerControls({ timeoutFunction }) {
                 }}
               ></div>
               <span
-                className="button"
+                className="button button-bar"
                 style={{
                   left: length ? `${(currentTime / length) * 100}%` : '0%',
                 }}

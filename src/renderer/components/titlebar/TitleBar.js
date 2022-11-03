@@ -12,9 +12,12 @@ export default function TitleBar({
   setHistory,
   title,
   setTitle,
+  currentUrl,
+  setCurrentUrl,
   drawer,
   setDrawer,
   mouseEnterHandler,
+  mouseLeaveHandler,
 }) {
   // ==================
   // Title Bar Function
@@ -41,16 +44,18 @@ export default function TitleBar({
     if (drawer) {
       document.body.classList.add('open-explore');
     } else {
-      document.body.classList.remove('open-explore');
+      document.body.classList.remove('open-explore', 'force-open');
     }
   }, [drawer]);
 
   useEffect(() => {
-    setDrawer(false);
+    if (title) {
+      setDrawer(false);
+    }
   }, [history, title]);
 
   const changeVideo = (e) => {
-    useChangeVideo(e, setTitle, setHistory);
+    useChangeVideo(e, setTitle, setCurrentUrl, setHistory);
   };
 
   return (
@@ -58,8 +63,7 @@ export default function TitleBar({
       <div
         className="app-title"
         onMouseMove={(e) => {
-          e.stopPropagation();
-          mouseEnterHandler();
+          mouseEnterHandler(e);
         }}
       >
         <div className="flex-inline gap-15">
@@ -112,6 +116,7 @@ export default function TitleBar({
                 e.currentTarget.parentElement.blur();
               }}
               type="file"
+              accept=".mp4, .mkv"
             />
           </div>
         </div>
