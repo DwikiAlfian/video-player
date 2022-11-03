@@ -9,10 +9,6 @@ import AltApp from './AltApp';
 import './App.css';
 
 const MainApp = () => {
-  const location = useLocation();
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
   return (
     <>
       <AltApp />
