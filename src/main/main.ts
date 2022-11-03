@@ -161,3 +161,9 @@ ipcMain.handle('maximize-event', () => {
 ipcMain.handle('unmaximize-event', () => {
   mainWindow?.unmaximize();
 });
+// Fullscreen Application
+ipcMain.handle('fullscreen-event', () => {
+  mainWindow?.isFullScreen()
+    ? mainWindow?.setFullScreen(false)
+    : mainWindow?.setFullScreen(true);
+});

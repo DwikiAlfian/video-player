@@ -3,6 +3,7 @@ import { BsX, BsChevronCompactLeft, BsChevronDown } from 'react-icons/bs';
 import { FiMinus } from 'react-icons/fi';
 import { VscWindow } from 'react-icons/vsc';
 import { SiPlayerfm } from 'react-icons/si';
+import { MdFullscreen } from 'react-icons/md';
 import useDropdown from 'renderer/hooks/useDropdown';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useChangeVideo from 'renderer/hooks/useChangeVideo';
@@ -37,6 +38,11 @@ export default function TitleBar({
   // Maximize Window Function
   const maximizeWindow = () => {
     ipcRenderer?.invoke('maximize-event');
+  };
+
+  // Fullscreen Window Function
+  const fullscreenWindow = () => {
+    ipcRenderer?.invoke('fullscreen-event');
   };
 
   // Drawer
@@ -97,6 +103,7 @@ export default function TitleBar({
         >
           Open
         </button> */}
+
         <div className="flex-inline gap-5 will-show">
           <div
             className="custom-input"

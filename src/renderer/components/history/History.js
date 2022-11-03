@@ -220,7 +220,7 @@ export default function History({
                             }}
                             className="url-short"
                           >
-                            {hist?.url.slice(0, 40)}
+                            {hist?.url.slice(0, 70)}
                           </span>
                         </div>
                         <div

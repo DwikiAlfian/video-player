@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { HiPlay, HiPause, HiVolumeUp } from 'react-icons/hi';
 import { BsStopCircleFill } from 'react-icons/bs';
 import { CgChevronDoubleLeftO, CgChevronDoubleRightO } from 'react-icons/cg';
+import { MdFullscreen } from 'react-icons/md';
 import useTooltip from 'renderer/hooks/useTooltip';
 import useMouseOver from 'renderer/hooks/useMouseOver';
 import useAdvancedAlert from 'renderer/hooks/useAdvancedAlert';
@@ -24,6 +25,12 @@ export default function PlayerControls({
   mouseEnterHandler,
   mouseLeaveHandler,
 }) {
+  const ipcRenderer = window.require('electron')?.ipcRenderer;
+
+  // Fullscreen Window Function
+  const fullscreenWindow = () => {
+    ipcRenderer?.invoke('fullscreen-event');
+  };
   return (
     <>
       <div
@@ -90,8 +97,13 @@ export default function PlayerControls({
           className="player-controls player-between"
           style={{ paddingTop: 15, paddingBottom: 15 }}
         >
-          <div className="button button-off">
-            <CgChevronDoubleLeftO size={18} />
+          <div
+            className="button"
+            onClick={() => {
+              fullscreenWindow();
+            }}
+          >
+            <MdFullscreen size={24} />
           </div>
           <div className="flex-inline gap-5 player-center">
             <div
