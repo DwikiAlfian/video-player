@@ -19,25 +19,44 @@ export default function useChangeVideo(
     if (setCurrentUrl) {
       setCurrentUrl(url ? url : e.target.files[0]?.path);
     }
+
+    const date = new Date(Date.now()).getDate();
+    const month = new Date(Date.now()).getMonth();
+    const year = new Date(Date.now()).getFullYear();
+
+    const fullTime = `${month}/${date}/${year}`;
+
     setHistory &&
       setHistory((prevState) => {
+        const result = {
+          [fullTime]: [
+            {
+              name: name ? name : e.target.files[0]?.name,
+              url: url ? url : e.target.files[0]?.path,
+            },
+          ],
+        };
         if (prevState) {
-          return [
-            {
+          if (prevState[fullTime]) {
+            prevState[fullTime].splice(0, 0, {
               name: name ? name : e.target.files[0]?.name,
-              url: url ? url : filtered,
-              date: Date.now(),
-            },
-            ...prevState,
-          ];
+              url: url ? url : e.target.files[0]?.path,
+            });
+            return prevState;
+          } else {
+            const addedYear = {
+              [fullTime]: [
+                {
+                  name: name ? name : e.target.files[0]?.name,
+                  url: url ? url : e.target.files[0]?.path,
+                },
+              ],
+              ...prevState,
+            };
+            return addedYear;
+          }
         } else {
-          return [
-            {
-              name: name ? name : e.target.files[0]?.name,
-              url: url ? url : filtered,
-              date: Date.now(),
-            },
-          ];
+          return result;
         }
       });
   }

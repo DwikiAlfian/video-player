@@ -64,6 +64,23 @@ export default function TitleBar({
     useChangeVideo(e, setTitle, setCurrentUrl, setHistory);
   };
 
+  const date = new Date(Date.now()).getFullYear();
+  const resultTest = {
+    [date]: [
+      {
+        name: 'Test Name',
+        url: 'Test URL',
+      },
+    ],
+  };
+
+  const addedData = resultTest[date].splice(0, 0, {
+    name: 'Added name',
+    url: 'Added URL',
+  });
+
+  // console.log(resultTest);
+
   return (
     <>
       <div

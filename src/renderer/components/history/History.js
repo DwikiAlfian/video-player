@@ -1,6 +1,7 @@
 import React from 'react';
 import useChangeVideo from 'renderer/hooks/useChangeVideo';
 import { HiPause, HiPlay, HiStop } from 'react-icons/hi';
+import { BsX } from 'react-icons/bs';
 import useTooltip from 'renderer/hooks/useTooltip';
 import useMouseOver from 'renderer/hooks/useMouseOver';
 
@@ -33,9 +34,15 @@ export default function History({
     useChangeVideo(false, setTitle, setCurrentUrl, setHistory, name, url);
   };
 
+  const date = new Date(Date.now()).getDate();
+  const month = new Date(Date.now()).getMonth();
+  const year = new Date(Date.now()).getFullYear();
+
+  const fullTime = `${month}/${date}/${year}`;
+
   return (
     <>
-      <div style={{ paddingTop: 75 }}>
+      <div style={{ paddingTop: 75, width: '100%' }}>
         <div className="history">
           <div className="history-title">
             <h4>Now Playing</h4>
@@ -52,7 +59,7 @@ export default function History({
                     backgroundColor: 'rgba(150,150,150,0.15',
                     borderRadius: 7,
                     padding: 5,
-                    marginTop: 35,
+                    marginTop: 75,
                   }}
                 >
                   <span className="player-time">
@@ -161,7 +168,7 @@ export default function History({
           </div>
           <div className="history-content">
             {history ? (
-              history.slice(0, 3).map((hist) => {
+              history[fullTime]?.slice(0, 3)?.map((hist) => {
                 return (
                   <>
                     <div className="history-tile history-tile-alt">
@@ -202,48 +209,70 @@ export default function History({
           </div>
           {/* LISTS */}
           <div className="history-content history-content-lists">
-            <div className="history-lists">
-              <span className="history-date">All Lists</span>
-              {history ? (
-                history.slice(0).map((hist) => {
+            {history
+              ? Object.keys(history).map((histories) => {
                   return (
                     <>
-                      <div className="history-tile history-tile-alt">
-                        <div className="flex-column gap-5">
-                          <h4>{hist?.name}</h4>
-                          <span
-                            // onMouseMove={(e) => {
-                            //   useMouseOver(e, hist?.url, 'center', 'y');
-                            // }}
-                            onMouseEnter={(e) => {
-                              useTooltip(e, hist?.url);
-                            }}
-                            className="url-short"
-                          >
-                            {hist?.url.slice(0, 70)}
-                          </span>
-                        </div>
-                        <div
-                          onMouseEnter={(e) => {
-                            useTooltip(e, 'Play video');
-                          }}
-                          onClick={() => {
-                            changeVideo(hist?.name, hist?.url);
-                          }}
-                          className="button"
-                        >
-                          <HiPlay size={29} />
-                        </div>
+                      <div className="history-lists">
+                        <span className="history-date">
+                          {histories === fullTime
+                            ? 'Today'
+                            : new Date(histories).toLocaleDateString('en-US', {
+                                dateStyle: 'full',
+                              })}
+                        </span>
+                        {history ? (
+                          history[histories]?.map((hist) => {
+                            return (
+                              <>
+                                <div className="history-tile history-tile-alt">
+                                  <div className="flex-inline">
+                                    <div className="history-delete">
+                                      <BsX size={28} />
+                                    </div>
+                                    <div className="flex-column gap-5">
+                                      <h4>{hist?.name}</h4>
+                                      <span
+                                        // onMouseMove={(e) => {
+                                        //   useMouseOver(e, hist?.url, 'center', 'y');
+                                        // }}
+                                        onMouseEnter={(e) => {
+                                          useTooltip(e, hist?.url);
+                                        }}
+                                        className="url-short"
+                                      >
+                                        {hist?.url.slice(0, 70)}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div
+                                    onMouseEnter={(e) => {
+                                      useTooltip(e, 'Play video');
+                                    }}
+                                    onClick={() => {
+                                      changeVideo(hist?.name, hist?.url);
+                                    }}
+                                    className="button"
+                                  >
+                                    <HiPlay size={29} />
+                                  </div>
+                                </div>
+                              </>
+                            );
+                          })
+                        ) : (
+                          <>
+                            <span>No histories recorded yet</span>
+                          </>
+                        )}
                       </div>
                     </>
                   );
                 })
-              ) : (
-                <>
-                  <span>No histories recorded yet</span>
-                </>
-              )}
-            </div>
+              : 'No Lists'}
+          </div>
+          <div>
+            <div style={{ height: 350 }}>{/* <p>jskd</p> */}</div>
           </div>
         </div>
       </div>

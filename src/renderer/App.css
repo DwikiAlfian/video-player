@@ -400,6 +400,7 @@ body.open-explore .chevron-left {
   flex-direction: row;
   padding: 10px;
   height: 100%;
+  width: 100%;
   gap: 10px;
   background-image: linear-gradient(55deg, rgba(10, 10, 10), rgba(60, 10, 30));
 }
@@ -502,11 +503,13 @@ body.open-explore .chevron-left {
 }
 .history-content.history-content-lists {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   padding-left: 75px;
   margin-top: 50px;
   padding-top: 75px;
+  gap: 100px;
+  overflow-x: hidden;
 }
 .history-content.history-content-lists .history-lists span.history-date {
   font-size: 1rem;
@@ -557,6 +560,28 @@ body.open-explore .chevron-left {
   min-height: unset;
   align-items: center;
   padding: 15px 20px;
+  transition: margin-left 250ms, background-color 150ms;
+}
+.history-content.history-content-lists .history-tile:hover {
+  margin-left: 15px;
+}
+.history-content.history-content-lists .history-tile .history-delete {
+  overflow: hidden;
+  width: max-content;
+  max-width: 0px;
+  transform: rotateZ(-25deg);
+  transform-origin: center;
+  transition: max-width 350ms, margin-right 250ms, transform 650ms;
+  color: rgba(150, 150, 150);
+  cursor: pointer;
+}
+.history-content.history-content-lists .history-tile .history-delete:hover {
+  color: rgba(255, 255, 255);
+}
+.history-content.history-content-lists .history-tile:hover .history-delete {
+  max-width: 25px;
+  margin-right: 15px;
+  transform: rotateZ(0);
 }
 .history-recent-content .history-tile {
   width: 100%;

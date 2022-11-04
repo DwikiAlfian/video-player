@@ -19,8 +19,9 @@ export default function AltApp() {
 
   // Save new history on local state to local storage
   useEffect(() => {
+    // console.log(history);
     setSavedHistory(history);
-  }, [history]);
+  }, [history, title]);
 
   // Set local state with data from local storage on first launch
   useEffect(() => {
@@ -152,6 +153,8 @@ export default function AltApp() {
       videoPlayer.currentTime = seekTime;
     }
   };
+
+  // console.log(history);
 
   // ======================
   // End of Media Functions
